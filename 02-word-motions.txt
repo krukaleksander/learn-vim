@@ -22,9 +22,6 @@ Jump to the last character of each word here
 # Tip: W/B/E treat anything separated by whitespace as a WORD
 # ──────────────────────────────────────────────────────────────────────────────
 one-two-three four.five.six seven_eight_nine "quoted text" end
-│   │   │     │    │    │   │     │     │    │      │     │
-w   w   w     w    w    w   w     w     w    w      w     w  (many stops)
-W           W          W               W           W     W  (fewer stops)
 
 # Exercise 5: Combining Counts with Word Motions
 # Task: Use 3w to jump 3 words forward, 2b to jump 2 words back
