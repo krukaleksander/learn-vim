@@ -1,0 +1,121 @@
+================================================================================
+                          VIM MOTIONS - WORD MOVEMENTS
+================================================================================
+
+# Exercise 1: Word Forward (w)
+# Task: Jump from START to TARGET using only 'w' (count the jumps!)
+# ──────────────────────────────────────────────────────────────────────────────
+START one two three four five TARGET end
+
+# Exercise 2: Word Backward (b)
+# Task: Jump from END to TARGET using only 'b'
+# ──────────────────────────────────────────────────────────────────────────────
+start TARGET five four three two one END
+
+# Exercise 3: End of Word (e)
+# Task: Use 'e' to jump to the END of each word
+# ──────────────────────────────────────────────────────────────────────────────
+Jump to the last character of each word here
+
+# Exercise 4: WORD vs word (W, B, E vs w, b, e)
+# Task: Compare 'w' vs 'W' on this line - notice the difference!
+# Tip: W/B/E treat anything separated by whitespace as a WORD
+# ──────────────────────────────────────────────────────────────────────────────
+one-two-three four.five.six seven_eight_nine "quoted text" end
+│   │   │     │    │    │   │     │     │    │      │     │
+w   w   w     w    w    w   w     w     w    w      w     w  (many stops)
+W           W          W               W           W     W  (fewer stops)
+
+# Exercise 5: Combining Counts with Word Motions
+# Task: Use 3w to jump 3 words forward, 2b to jump 2 words back
+# ──────────────────────────────────────────────────────────────────────────────
+START alpha beta gamma delta epsilon zeta TARGET omega END
+      └──── 3w ────┘     └── 2w ──┘
+Try: 3w, 2w, 4b, 2e
+
+# Exercise 6: Word Motions in Code
+# Task: Navigate through this code using w, b, e, W, B, E
+# ──────────────────────────────────────────────────────────────────────────────
+const userName = getUserById(userId).firstName || "Anonymous";
+let items = array.filter(x => x.isActive).map(x => x.name);
+function calculateTotal(prices, taxRate) { return sum * (1 + tax); }
+
+# Exercise 7: ge - Backward to End of Word
+# Task: Use 'ge' to move backward to the end of the previous word
+# ──────────────────────────────────────────────────────────────────────────────
+Move backward to the end of each previous word
+         ^ge  ^ge   ^ge ^ge  ^ge  ^ge      ^ge
+
+# Exercise 8: Speed Challenge
+# Task: Get from START to TARGET in the minimum number of keystrokes
+# ──────────────────────────────────────────────────────────────────────────────
+START aaa bbb ccc ddd eee fff ggg hhh iii jjj TARGET zzz
+
+Hint: Count words and use {count}w - e.g., 11w gets you there in 3 keystrokes!
+
+# Exercise 9: Mixed Practice
+# Task: Navigate efficiently through this text
+# ──────────────────────────────────────────────────────────────────────────────
+The quick brown fox jumps over the lazy dog. Pack my box with five dozen
+liquor jugs. How vexingly quick daft zebras jump! The five boxing wizards
+jump quickly. Sphinx of black quartz, judge my vow.
+
+Try these combinations:
+- 5w  (jump 5 words forward)
+- 3b  (jump 3 words backward)  
+- 2e  (jump to end of 2nd word)
+- }   (jump to next paragraph)
+- 4W  (jump 4 WORDs forward)
+
+# Exercise 10: Real-World Code Navigation
+# Task: Practice navigating through realistic code snippets
+# ──────────────────────────────────────────────────────────────────────────────
+import { useState, useEffect, useCallback } from 'react';
+import { fetchUserData, updateUserProfile } from '../api/users';
+import { validateEmail, formatPhoneNumber } from '../utils/validators';
+
+interface UserProfile {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone?: string;
+    preferences: {
+        theme: 'light' | 'dark';
+        notifications: boolean;
+    };
+}
+
+const UserProfileComponent: React.FC<Props> = ({ userId, onUpdate }) => {
+    const [user, setUser] = useState<UserProfile | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        fetchUserData(userId)
+            .then(data => setUser(data))
+            .catch(err => setError(err.message))
+            .finally(() => setIsLoading(false));
+    }, [userId]);
+
+    return isLoading ? <Spinner /> : <ProfileCard user={user} />;
+};
+
+================================================================================
+                            WORD MOTIONS CHEATSHEET
+================================================================================
+w        - Jump to start of next word
+b        - Jump to start of previous word
+e        - Jump to end of current/next word
+ge       - Jump to end of previous word
+W        - Jump to start of next WORD (whitespace-separated)
+B        - Jump to start of previous WORD
+E        - Jump to end of current/next WORD
+gE       - Jump to end of previous WORD
+
+{count}w - Jump forward {count} words (e.g., 5w)
+{count}b - Jump backward {count} words (e.g., 3b)
+
+Word = sequence of letters, digits, underscores OR sequence of other characters
+WORD = sequence of non-blank characters (separated by whitespace)
+================================================================================
