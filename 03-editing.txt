@@ -1,0 +1,175 @@
+================================================================================
+                         VIM MOTIONS - BASIC EDITING
+================================================================================
+
+# Exercise 1: Delete Character (x)
+# Task: Remove the X characters from these words
+# ──────────────────────────────────────────────────────────────────────────────
+heXllo worXld
+proXgramXming
+Expected: hello world / programming
+
+# Exercise 2: Delete Word (dw)
+# Task: Delete the word REMOVE from each line using 'dw'
+# ──────────────────────────────────────────────────────────────────────────────
+This REMOVE sentence has extra words
+Please REMOVE delete REMOVE these REMOVE words
+Expected: This sentence has extra words
+Expected: Please delete these words
+
+# Exercise 3: Delete to End of Line (d$ or D)
+# Task: Delete everything after the | symbol (position cursor on |, then D)
+# ──────────────────────────────────────────────────────────────────────────────
+Keep this part | delete everything after this
+Important text | unnecessary trailing content
+Expected: Keep this part
+Expected: Important text
+
+# Exercise 4: Delete Entire Line (dd)
+# Task: Delete the lines marked DELETE
+# ──────────────────────────────────────────────────────────────────────────────
+Keep this line
+DELETE THIS LINE
+Keep this line too
+DELETE THIS LINE ALSO
+And keep this one
+Expected: Only 3 "Keep" lines remain
+
+# Exercise 5: Delete Multiple Lines (3dd)
+# Task: Delete all three DELETE lines at once using 3dd
+# ──────────────────────────────────────────────────────────────────────────────
+Keep this
+DELETE LINE 1
+DELETE LINE 2
+DELETE LINE 3
+Keep this too
+
+# Exercise 6: Change Word (cw)
+# Task: Change WRONG to CORRECT using 'cw'
+# ──────────────────────────────────────────────────────────────────────────────
+The WRONG answer is here
+This is WRONG information
+Expected: The CORRECT answer is here
+Expected: This is CORRECT information
+
+# Exercise 7: Change to End of Line (c$ or C)
+# Task: Change everything after | to "FIXED"
+# ──────────────────────────────────────────────────────────────────────────────
+Start here | change all this messy text to something clean
+Begin | this whole ending needs to be replaced
+Expected: Start here FIXED
+Expected: Begin FIXED
+
+# Exercise 8: Change Entire Line (cc or S)
+# Task: Replace the entire CHANGE line with "This line is correct"
+# ──────────────────────────────────────────────────────────────────────────────
+Good line above
+CHANGE THIS ENTIRE LINE TO SOMETHING ELSE
+Good line below
+
+# Exercise 9: Yank (Copy) and Paste (y, p, P)
+# Task: Copy the COPY line and paste it below the PASTE marker
+# ──────────────────────────────────────────────────────────────────────────────
+COPY THIS LINE (use yy to yank)
+
+PASTE BELOW THIS LINE (use p to paste):
+
+
+# Exercise 10: Yank Word and Paste (yw, p)
+# Task: Copy COPY_ME and paste it to replace PASTE_HERE
+# Tip: yw to yank word, move to PASTE_HERE, then use p
+# ──────────────────────────────────────────────────────────────────────────────
+The word COPY_ME should appear here: PASTE_HERE
+Expected: The word COPY_ME should appear here: COPY_ME
+
+# Exercise 11: Delete and Paste Pattern
+# Task: Swap the words FIRST and SECOND
+# Tip: Delete FIRST (dw), move to SECOND, paste (P), delete old SECOND
+# ──────────────────────────────────────────────────────────────────────────────
+The FIRST comes before SECOND
+Expected: The SECOND comes before FIRST
+
+# Exercise 12: Undo and Redo (u, Ctrl-r)
+# Task: Practice undoing and redoing changes
+# ──────────────────────────────────────────────────────────────────────────────
+Make some changes to this line, then:
+1. Press 'u' to undo
+2. Press 'Ctrl-r' to redo
+3. Press '3u' to undo 3 changes at once
+
+# Exercise 13: Repeat Last Change (.)
+# Task: Delete REMOVE using dw, then use . to repeat on other REMOVEs
+# ──────────────────────────────────────────────────────────────────────────────
+Word REMOVE one REMOVE two REMOVE three REMOVE four
+Tip: dw on first REMOVE, then n. to find next and repeat!
+
+# Exercise 14: Replace Single Character (r)
+# Task: Replace X with the correct letter using 'r'
+# ──────────────────────────────────────────────────────────────────────────────
+HXllo World (X should be e)
+PrXgramming (X should be o)
+VXm is great (X should be i)
+
+# Exercise 15: Replace Mode (R)
+# Task: Enter Replace mode (R) and overwrite XXXXX with FIXED
+# ──────────────────────────────────────────────────────────────────────────────
+The answer is XXXXX here
+Status: XXXXX
+Expected: The answer is FIXED here
+Expected: Status: FIXED
+
+# Exercise 16: Join Lines (J)
+# Task: Join these split lines into one using 'J'
+# ──────────────────────────────────────────────────────────────────────────────
+This sentence is
+split across
+multiple lines
+Expected: This sentence is split across multiple lines
+
+# Exercise 17: Practical Editing Challenge
+# Task: Fix this code using the editing commands you've learned
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+functon BROKEN calculaeSum(a, b) {
+    retrun a  +b
+    DELETE THIS LINE
+}
+
+AFTER (Expected):
+function calculateSum(a, b) {
+    return a + b;
+}
+
+================================================================================
+                            EDITING CHEATSHEET
+================================================================================
+x        - Delete character under cursor
+X        - Delete character before cursor
+dw       - Delete from cursor to start of next word
+de       - Delete from cursor to end of word
+d$  / D  - Delete from cursor to end of line
+d0       - Delete from cursor to beginning of line
+dd       - Delete entire line
+{n}dd    - Delete n lines
+
+cw       - Change from cursor to start of next word
+ce       - Change from cursor to end of word  
+c$  / C  - Change from cursor to end of line
+cc  / S  - Change entire line
+
+yw       - Yank (copy) from cursor to start of next word
+y$       - Yank from cursor to end of line
+yy  / Y  - Yank entire line
+
+p        - Paste after cursor/below line
+P        - Paste before cursor/above line
+
+r{char}  - Replace single character with {char}
+R        - Enter Replace mode (overwrite)
+
+u        - Undo last change
+Ctrl-r   - Redo (undo the undo)
+.        - Repeat last change
+
+J        - Join current line with next line
+================================================================================
