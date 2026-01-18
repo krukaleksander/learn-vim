@@ -1,0 +1,243 @@
+================================================================================
+                          VIM MOTIONS - TEXT OBJECTS
+================================================================================
+Text objects let you operate on structured chunks of text.
+Format: {operator}{a|i}{object}
+  - 'a' = "a" (around) - includes delimiters/whitespace
+  - 'i' = "inner" - excludes delimiters/whitespace
+================================================================================
+
+# Exercise 1: Inner Word (iw) vs A Word (aw)
+# Task: Delete the word REMOVE using 'diw' (keeps spaces) vs 'daw' (removes space)
+# ──────────────────────────────────────────────────────────────────────────────
+Delete the REMOVE word here
+Delete the REMOVE word here
+
+Try: Position cursor anywhere in REMOVE
+  - diw → Delete the  word here (double space)
+  - daw → Delete the word here (single space)
+
+# Exercise 2: Change Inner Word (ciw)
+# Task: Change WRONG to CORRECT using 'ciw' (cursor can be anywhere in word)
+# ──────────────────────────────────────────────────────────────────────────────
+The WRONG answer
+A WRONG solution
+This is totally WRONG
+Expected: The CORRECT answer (etc.)
+
+# Exercise 3: Inner Quotes (i") and Around Quotes (a")
+# Task: Delete/change the text inside quotes
+# ──────────────────────────────────────────────────────────────────────────────
+const message = "delete this text";
+const greeting = "Hello, World!";
+let status = "change me to something else";
+
+Try on first line:
+  - di" → const message = "";
+  - da" → const message = ;
+  - ci" → const message = "|" (cursor inside, ready to type)
+
+# Exercise 4: Single Quotes (i' and a')
+# Task: Work with single-quoted strings
+# ──────────────────────────────────────────────────────────────────────────────
+const name = 'John Doe';
+let type = 'primary';
+const id = 'user-123-abc';
+
+Try: ci' to change content, di' to delete content
+
+# Exercise 5: Parentheses (i( or ib) and (a( or ab)
+# Task: Delete or change content inside parentheses
+# ──────────────────────────────────────────────────────────────────────────────
+function greet(name, age, city) {
+    console.log(name + " is " + age);
+    return calculateScore(base, multiplier, bonus);
+}
+
+Try on function parameters:
+  - di( → function greet() { (deletes parameters)
+  - ci( → function greet(|) { (ready to type new params)
+
+# Exercise 6: Curly Braces (i{ or iB) and (a{ or aB)
+# Task: Delete or change content inside curly braces
+# ──────────────────────────────────────────────────────────────────────────────
+const config = { host: "localhost", port: 3000 };
+
+const user = {
+    name: "Alice",
+    age: 30,
+    role: "admin"
+};
+
+if (condition) {
+    doSomething();
+    doSomethingElse();
+}
+
+Try: di{ to delete object contents, ci{ to change them
+
+# Exercise 7: Square Brackets (i[ and a[)
+# Task: Work with arrays and bracket notation
+# ──────────────────────────────────────────────────────────────────────────────
+const numbers = [1, 2, 3, 4, 5];
+const names = ["Alice", "Bob", "Charlie"];
+const matrix = [[1, 2], [3, 4], [5, 6]];
+const value = object["property"];
+
+Try: di[ to empty array, ci[ to replace contents
+
+# Exercise 8: Angle Brackets (i< and a<)
+# Task: Work with HTML/JSX tags and generics
+# ──────────────────────────────────────────────────────────────────────────────
+<div className="container">
+<button onClick={handleClick}>
+<Component prop="value">
+const list: Array<string> = [];
+function process<T extends Base>(item: T) {}
+
+Try: di< to delete tag name, ci< to change it
+
+# Exercise 9: Inner Tag (it) and Around Tag (at)
+# Task: Work with HTML tag contents
+# ──────────────────────────────────────────────────────────────────────────────
+<div>Delete this content</div>
+<span>Change this text</span>
+<p>This paragraph has some text inside it</p>
+<li>List item content here</li>
+
+Try:
+  - dit → <div></div> (deletes inner content)
+  - dat → (deletes entire tag including <div></div>)
+  - cit → <div>|</div> (ready to type new content)
+
+# Exercise 10: Inner Paragraph (ip) and Around Paragraph (ap)
+# Task: Delete or yank entire paragraphs
+# ──────────────────────────────────────────────────────────────────────────────
+This is the first paragraph.
+It has multiple lines.
+All connected together.
+
+This is the second paragraph.
+Also with multiple lines.
+You can yank this with yap.
+
+This is the third paragraph.
+Try dap to delete it entirely.
+Or cip to change its contents.
+
+# Exercise 11: Inner Sentence (is) and Around Sentence (as)
+# Task: Work with sentences
+# ──────────────────────────────────────────────────────────────────────────────
+This is the first sentence. This is the second sentence. And here is the third.
+
+Try: das to delete a sentence, cis to change one.
+
+# Exercise 12: Backticks (i` and a`)
+# Task: Work with template literals and markdown code
+# ──────────────────────────────────────────────────────────────────────────────
+const template = `Hello, ${name}!`;
+const sql = `SELECT * FROM users WHERE id = ${id}`;
+Use the `command` to run it.
+
+Try: di` to delete content, ci` to change it
+
+# Exercise 13: Practical Text Object Challenge
+# Task: Refactor this code using text objects
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+function processUser(oldParam1, oldParam2, oldParam3) {
+    const config = { old: "value", wrong: "data" };
+    const items = ["remove", "these", "items"];
+    return "old return value";
+}
+
+AFTER (use text objects to change):
+function processUser(id, name, email) {
+    const config = { user: "data", status: "active" };
+    const items = ["id", "name", "email"];
+    return "processed successfully";
+}
+
+Suggested operations:
+  - ci( on parameters
+  - ci{ on config object
+  - ci[ on items array
+  - ci" on return string
+
+# Exercise 14: Nested Text Objects
+# Task: Practice with nested structures
+# ──────────────────────────────────────────────────────────────────────────────
+const data = {
+    users: [
+        { name: "Alice", tags: ["admin", "active"] },
+        { name: "Bob", tags: ["user", "pending"] }
+    ]
+};
+
+function outer(a, (b, c), d) {
+    return inner((x, y), z);
+}
+
+Tip: Position cursor inside the target delimiter, then use the text object.
+     Vim finds the nearest matching pair.
+
+# Exercise 15: Text Objects in Real Code
+# Task: Use text objects to edit this React component
+# ──────────────────────────────────────────────────────────────────────────────
+import React from 'react';
+
+interface Props {
+    title: string;
+    description: string;
+    onClick: () => void;
+}
+
+const Card: React.FC<Props> = ({ title, description, onClick }) => {
+    return (
+        <div className="card">
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <button onClick={onClick}>Click me</button>
+        </div>
+    );
+};
+
+export default Card;
+
+Practice:
+  - ci' on import path
+  - ci{ on interface body
+  - ci( on function parameters
+  - cit on tag contents
+  - ci" on className
+
+================================================================================
+                          TEXT OBJECTS CHEATSHEET
+================================================================================
+WORD/CHARACTER OBJECTS:
+iw / aw    - Inner word / A word (includes surrounding space)
+iW / aW    - Inner WORD / A WORD
+is / as    - Inner sentence / A sentence
+ip / ap    - Inner paragraph / A paragraph
+
+QUOTE OBJECTS:
+i" / a"    - Inner double quotes / Around double quotes
+i' / a'    - Inner single quotes / Around single quotes
+i` / a`    - Inner backticks / Around backticks
+
+BRACKET OBJECTS:
+i( / a(    - Inner parentheses / Around parentheses (alias: ib / ab)
+i{ / a{    - Inner curly braces / Around curly braces (alias: iB / aB)
+i[ / a[    - Inner square brackets / Around square brackets
+i< / a<    - Inner angle brackets / Around angle brackets
+
+TAG OBJECTS:
+it / at    - Inner tag / Around tag (HTML/XML)
+
+COMMON PATTERNS:
+ciw        - Change inner word (change word under cursor)
+di"        - Delete inner quotes (empty the string)
+da(        - Delete around parentheses (delete parens too)
+yi{        - Yank inner braces (copy object contents)
+vat        - Visual select around tag (select entire element)
+================================================================================
