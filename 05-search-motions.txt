@@ -1,0 +1,248 @@
+================================================================================
+                        VIM MOTIONS - SEARCH & FIND
+================================================================================
+
+# Exercise 1: Find Character (f)
+# Task: Use 'f' followed by a character to jump to it
+# ──────────────────────────────────────────────────────────────────────────────
+The quick brown fox jumps over the lazy dog
+
+Try: fq (jump to 'q'), fo (jump to first 'o'), fz (jump to 'z')
+Use ; to repeat forward, , to repeat backward
+
+# Exercise 2: Find Character Backwards (F)
+# Task: Position at END and use 'F' to find characters backwards
+# ──────────────────────────────────────────────────────────────────────────────
+START the amazing adventure awaits END
+
+Try from END: Fa (find 'a' backwards), Ft (find 't' backwards)
+
+# Exercise 3: Till Character (t)
+# Task: Use 't' to jump BEFORE a character (useful for deleting up to something)
+# ──────────────────────────────────────────────────────────────────────────────
+Delete everything before the STOP point here
+
+Try: dt (space) - delete till space
+     dtS - delete till 'S' (stops just before STOP)
+
+# Exercise 4: Till Character Backwards (T)
+# Task: Use 'T' to jump AFTER a character going backwards
+# ──────────────────────────────────────────────────────────────────────────────
+Keep this, DELETE from here to END
+
+Position at END, try: dT, (delete backwards till comma)
+
+# Exercise 5: Repeat Find (; and ,)
+# Task: Find all 'e' characters using 'fe' then ';' to repeat
+# ──────────────────────────────────────────────────────────────────────────────
+The excellent elephant elegantly entered the elevator
+
+fe → jump to first 'e'
+;  → jump to next 'e'
+;  → jump to next 'e' (keep pressing)
+,  → go back to previous 'e'
+
+# Exercise 6: Delete/Change with Find (df, dt, cf, ct)
+# Task: Use find motions with operators
+# ──────────────────────────────────────────────────────────────────────────────
+function(param1, param2, param3)
+email@example.com
+path/to/some/file.txt
+
+Try on first line:
+  - df, → delete through first comma: function(param2, param3)
+  - dt, → delete until first comma: function(, param2, param3)
+  - cf) → change through closing paren (delete and enter insert)
+
+# Exercise 7: Search Forward (/)
+# Task: Use '/' to search for patterns
+# ──────────────────────────────────────────────────────────────────────────────
+The function calculateTotal takes two parameters.
+First, it validates the input values.
+Then, it calculates the sum and returns the total.
+Finally, the calculateTotal result is displayed.
+
+Try:
+  /calculate  → jump to first "calculate"
+  n           → jump to next match
+  N           → jump to previous match
+  /total      → search for "total"
+
+# Exercise 8: Search Backward (?)
+# Task: Use '?' to search backwards from current position
+# ──────────────────────────────────────────────────────────────────────────────
+First occurrence of FIND here.
+Second occurrence of FIND here.
+Third occurrence of FIND here.
+Fourth occurrence of FIND here.
+START YOUR SEARCH FROM HERE
+
+From bottom: ?FIND → finds "FIND" going backwards
+             n → next match (continues backwards)
+             N → previous match (goes forward)
+
+# Exercise 9: Search Word Under Cursor (* and #)
+# Task: Use '*' to search forward and '#' to search backward for word under cursor
+# ──────────────────────────────────────────────────────────────────────────────
+The variable count is used here.
+Later we increment count by one.
+Finally count is returned.
+The count is important.
+
+Position cursor on "count", then:
+  * → jump to next "count"
+  * → jump to next "count" again
+  # → jump to previous "count"
+
+# Exercise 10: Search and Replace Pattern
+# Task: Search for ERROR, then use 'n' and '.' to fix all occurrences
+# ──────────────────────────────────────────────────────────────────────────────
+Status: ERROR
+Result: ERROR  
+State: ERROR
+Code: ERROR
+
+Try: /ERROR → find first
+     cwSUCCESS<Esc> → change to SUCCESS
+     n → next match
+     . → repeat the change
+     n. → repeat (find next and change)
+
+# Exercise 11: Case Sensitivity in Search
+# Task: Practice case-sensitive and case-insensitive search
+# ──────────────────────────────────────────────────────────────────────────────
+The Word appears here.
+Another word is here.
+WORD in caps here.
+Mixed Word case.
+
+Try:
+  /word      → finds "word" (case depends on settings)
+  /Word      → finds "Word" 
+  /\cword    → case-insensitive (finds all)
+  /\Cword    → case-sensitive (only lowercase "word")
+
+# Exercise 12: Delete/Change to Search Result (d/, c/)
+# Task: Delete or change text up to a search pattern
+# ──────────────────────────────────────────────────────────────────────────────
+Delete all this text UNTIL you reach the MARKER here
+Change everything before END to something else END done
+
+Try: d/MARKER → delete up to "MARKER"
+     c/END    → change up to "END" (enters insert mode)
+
+# Exercise 13: Search with Offset
+# Task: Use search offsets to land on different positions
+# ──────────────────────────────────────────────────────────────────────────────
+The target word is somewhere in this line for you to find.
+
+Try:
+  /target      → cursor on 't' of "target"
+  /target/e    → cursor on last char ('t') of "target"  
+  /target/e+1  → cursor one char after "target"
+  /target/b+2  → cursor on 2nd char of "target"
+
+# Exercise 14: Practical Search Challenge - Code Navigation
+# Task: Navigate this code using search commands
+# ──────────────────────────────────────────────────────────────────────────────
+class UserService {
+    private users: User[] = [];
+    
+    constructor(private db: Database) {
+        this.loadUsers();
+    }
+    
+    async loadUsers(): Promise<void> {
+        this.users = await this.db.query('SELECT * FROM users');
+    }
+    
+    getUser(id: number): User | undefined {
+        return this.users.find(u => u.id === id);
+    }
+    
+    async createUser(data: UserData): Promise<User> {
+        const user = await this.db.insert('users', data);
+        this.users.push(user);
+        return user;
+    }
+    
+    async updateUser(id: number, data: Partial<UserData>): Promise<User> {
+        const user = await this.db.update('users', id, data);
+        const index = this.users.findIndex(u => u.id === id);
+        this.users[index] = user;
+        return user;
+    }
+    
+    async deleteUser(id: number): Promise<void> {
+        await this.db.delete('users', id);
+        this.users = this.users.filter(u => u.id !== id);
+    }
+}
+
+Navigation exercises:
+  /function   → find functions (or /async for async ones)
+  /User       → find User references
+  *           → on 'users' to find all usages
+  /return     → find return statements
+  /this\.db   → find database operations
+
+# Exercise 15: Search in Practical Editing
+# Task: Use search to perform bulk edits
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const oldName = "value";
+const oldPrice = 100;
+const oldCount = 5;
+function oldFunction() {}
+const oldConfig = {};
+
+AFTER (change all "old" to "new"):
+Method 1: Search and repeat
+  /old     → find first
+  cwnew    → change word to "new"
+  n.       → repeat
+
+Method 2: Substitute command (bonus!)
+  :%s/old/new/g   → replace all in file
+  :%s/old/new/gc  → replace all with confirmation
+
+================================================================================
+                         SEARCH MOTIONS CHEATSHEET
+================================================================================
+CHARACTER SEARCH (current line only):
+f{char}    - Find {char} forward (cursor ON char)
+F{char}    - Find {char} backward (cursor ON char)
+t{char}    - Till {char} forward (cursor BEFORE char)
+T{char}    - Till {char} backward (cursor AFTER char)
+;          - Repeat last f/F/t/T forward
+,          - Repeat last f/F/t/T backward
+
+PATTERN SEARCH (whole file):
+/{pattern} - Search forward for pattern
+?{pattern} - Search backward for pattern
+n          - Repeat search in same direction
+N          - Repeat search in opposite direction
+*          - Search forward for word under cursor
+#          - Search backward for word under cursor
+g*         - Like * but partial match
+g#         - Like # but partial match
+
+SEARCH MODIFIERS:
+\c         - Case insensitive: /\cword
+\C         - Case sensitive: /\Cword
+/pattern/e - Jump to end of match
+/pattern/b+n - Jump to beginning + n chars
+
+OPERATORS WITH SEARCH:
+d/{pattern} - Delete to pattern
+c/{pattern} - Change to pattern
+y/{pattern} - Yank to pattern
+df{char}    - Delete through {char}
+dt{char}    - Delete until {char}
+ct{char}    - Change until {char}
+
+USEFUL SETTINGS:
+:set hlsearch   - Highlight all matches
+:set incsearch  - Show matches as you type
+:noh            - Clear search highlighting
+================================================================================
