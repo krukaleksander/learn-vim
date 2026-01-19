@@ -190,21 +190,18 @@ Navigation exercises:
 # Task: Use search to perform bulk edits
 # ──────────────────────────────────────────────────────────────────────────────
 BEFORE:
-const oldName = "value";
+const  = "value";
 const oldPrice = 100;
 const oldCount = 5;
 function oldFunction() {}
 const oldConfig = {};
 
 AFTER (change all "old" to "new"):
-Method 1: Search and repeat
-  /old     → find first
-  cwnew    → change word to "new"
-  n.       → repeat
-
-Method 2: Substitute command (bonus!)
+Use the substitute command:
   :%s/old/new/g   → replace all in file
   :%s/old/new/gc  → replace all with confirmation
+
+Note: Using cw or ce on camelCase (like oldName) will replace the whole word, not just "old". Substitute is safer for such cases.
 
 ================================================================================
                          SEARCH MOTIONS CHEATSHEET
