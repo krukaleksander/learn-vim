@@ -351,3 +351,41 @@ Changes needed:
 5. Add missing semicolons
 6. Fix spacing around operators
 
+================================================================================
+                          EFFICIENCY TIPS
+================================================================================
+1. Count before motion: 5j is faster than jjjjj
+2. Use text objects: ciw is faster than bcw
+3. Use search: /pattern is faster than many w presses
+4. Use . to repeat: saves retyping commands
+5. Use macros for repetitive tasks: qq to record, @q to replay
+6. Combine operators: gUiw (uppercase word), gu$ (lowercase to end)
+7. Use marks for jumping: ma to set, 'a to jump
+8. Use Ctrl-o / Ctrl-i to navigate jump history
+
+================================================================================
+                        COMMAND COMBINATIONS REFERENCE
+================================================================================
+ciw     - Change inner word
+caw     - Change a word (including space)
+ci"     - Change inside double quotes
+ca"     - Change around double quotes (includes quotes)
+ci(     - Change inside parentheses
+ca(     - Change around parentheses
+ci{     - Change inside curly braces
+dit     - Delete inside tag
+dat     - Delete around tag (entire element)
+yap     - Yank a paragraph
+dap     - Delete a paragraph
+=ap     - Auto-indent a paragraph
+gUiw    - Uppercase word
+guiw    - Lowercase word
+g~iw    - Toggle case of word
+>>      - Indent line right
+<<      - Indent line left
+==      - Auto-indent current line
+J       - Join lines
+gJ      - Join lines without space
+xp      - Transpose characters (swap)
+ddp     - Transpose lines (swap)
+================================================================================
