@@ -145,10 +145,12 @@ Steps:
 1. yy to yank the line
 2. p to paste below
 3. f_ to jump to underscore
-4. wciwACTIVE<Esc> to change name
-5. f' to jump to string
-6. ci'active<Esc> to change value
-7. Repeat for other statuses
+4. w to move to the start of the status name (e.g., PENDING)
+5. ve (or vE) to visually select the status name
+6. cACTIVE<Esc> to change it (or rA for single letter, or use s for substitute)
+7. f' to jump to the string value
+8. ci'active<Esc> to change the value
+9. Repeat for other statuses
 
 # Scenario 8: Wrap Content in Tags/Brackets
 # Task: Wrap text in HTML tags or brackets
