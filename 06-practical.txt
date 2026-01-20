@@ -1,0 +1,353 @@
+================================================================================
+                    VIM MOTIONS - PRACTICAL SCENARIOS
+================================================================================
+Real-world editing challenges combining multiple Vim motions
+================================================================================
+
+# Scenario 1: Rename Variable
+# Task: Rename 'oldVar' to 'newVar' throughout this function
+# Technique: Use * to find, ciw to change, n. to repeat
+# ──────────────────────────────────────────────────────────────────────────────
+function processData(oldVar) {
+    if (oldVar === null) {
+        return null;
+    }
+    const result = transform(oldVar);
+    console.log("Processing:", oldVar);
+    return oldVar.map(item => item * 2);
+}
+
+Steps:
+1. Position cursor on 'oldVar'
+2. * to search for word
+3. ciwnewVar<Esc> to change first occurrence
+4. n to find next
+5. . to repeat change
+6. Repeat n. until done
+
+# Scenario 2: Change Function Parameters
+# Task: Modify function signatures
+# Technique: Use ci( to change inside parentheses
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+function createUser(name, email, password, age, role) {
+    return db.insert(name, email, password, age, role);
+}
+
+const result = processItems(item1, item2, item3, item4);
+
+AFTER:
+function createUser(userData: UserInput) {
+    return db.insert(userData);
+}
+
+const result = processItems(items);
+
+# Scenario 3: Extract Object Properties
+# Task: Refactor object literals
+# Technique: Use ci{ to change inside braces
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const config = { host: "localhost", port: 3000, debug: true, timeout: 5000 };
+const user = { name: "John", age: 30, email: "john@example.com" };
+const options = { enabled: true, visible: false, count: 10 };
+
+AFTER (format each on multiple lines):
+const config = {
+    host: "localhost",
+    port: 3000,
+    debug: true,
+    timeout: 5000
+};
+
+# Scenario 4: Convert Arrow Functions
+# Task: Convert arrow functions to regular functions
+# Technique: Use f, t, c combinations
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const add = (a, b) => a + b;
+const greet = (name) => `Hello, ${name}!`;
+const double = x => x * 2;
+const process = (data) => {
+    return data.map(x => x.toUpperCase());
+};
+
+AFTER:
+function add(a, b) { return a + b; }
+function greet(name) { return `Hello, ${name}!`; }
+function double(x) { return x * 2; }
+function process(data) {
+    return data.map(x => x.toUpperCase());
+}
+
+# Scenario 5: Update Import Statements
+# Task: Modify import paths and names
+# Technique: Use ci' or ci" for paths, ciw for names
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+import { Component } from './old-path/component';
+import { helper } from '../utils/old-helper';
+import DefaultExport from './legacy/module';
+import * as utils from './deprecated/utils';
+
+AFTER:
+import { Component } from './new-path/component';
+import { helper } from '../utils/new-helper';
+import DefaultExport from './modern/module';
+import * as utils from './current/utils';
+
+# Scenario 6: Fix Indentation and Formatting
+# Task: Properly indent this code
+# Technique: Use >> and << for indentation, = for auto-indent
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+function example() {
+if (condition) {
+doSomething();
+    if (nested) {
+processData();
+}
+}
+return result;
+}
+
+AFTER:
+function example() {
+    if (condition) {
+        doSomething();
+        if (nested) {
+            processData();
+        }
+    }
+    return result;
+}
+
+Tips: 
+  - V to select line, then > or < to indent
+  - =ap to auto-indent paragraph
+  - gg=G to auto-indent entire file
+
+# Scenario 7: Duplicate and Modify Lines
+# Task: Create variations of a line
+# Technique: Use yy to yank, p to paste, then modify
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const STATUS_PENDING = 'pending';
+
+AFTER (create multiple status constants):
+const STATUS_PENDING = 'pending';
+const STATUS_ACTIVE = 'active';
+const STATUS_COMPLETED = 'completed';
+const STATUS_CANCELLED = 'cancelled';
+const STATUS_FAILED = 'failed';
+
+Steps:
+1. yy to yank the line
+2. p to paste below
+3. f_ to jump to underscore
+4. wciwACTIVE<Esc> to change name
+5. f' to jump to string
+6. ci'active<Esc> to change value
+7. Repeat for other statuses
+
+# Scenario 8: Wrap Content in Tags/Brackets
+# Task: Wrap text in HTML tags or brackets
+# Technique: Use visual selection + surround (or manual)
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+Important text here
+Another line to wrap
+Click me
+user.name
+
+AFTER:
+<strong>Important text here</strong>
+<div>Another line to wrap</div>
+<button>Click me</button>
+{user.name}
+
+Manual method:
+1. I<strong><Esc> to insert opening tag
+2. A</strong><Esc> to append closing tag
+
+# Scenario 9: Convert Between Quote Types
+# Task: Change single quotes to double quotes (or vice versa)
+# Technique: Use f' to find, r" to replace
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const message = 'Hello, World!';
+const name = 'John Doe';
+const path = '/home/user/documents';
+
+AFTER:
+const message = "Hello, World!";
+const name = "John Doe";
+const path = "/home/user/documents";
+
+Steps:
+1. f' to find first quote
+2. r" to replace with double quote
+3. ; to find next quote
+4. . to repeat replacement (r" again)
+5. Continue with ;. for all quotes
+
+# Scenario 10: Delete Trailing Content
+# Task: Remove everything after a certain point on each line
+# Technique: Use f{char} then D or dt{char}
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+username: john_doe // remove this comment
+password: secret123 // and this one too
+email: test@example.com // also remove
+role: admin /* delete this */
+
+AFTER:
+username: john_doe
+password: secret123
+email: test@example.com
+role: admin
+
+Steps:
+1. f/ to find //
+2. D to delete to end of line
+3. j to move down
+4. Repeat: f/D on each line (or use macro)
+
+# Scenario 11: Swap Lines
+# Task: Reorder lines
+# Technique: Use dd to delete, p/P to paste
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+3. Third step
+1. First step
+4. Fourth step
+2. Second step
+
+AFTER:
+1. First step
+2. Second step
+3. Third step
+4. Fourth step
+
+Steps:
+1. Move to "1. First step"
+2. dd to delete it
+3. Move to "3. Third step"
+4. P to paste above
+5. Repeat for other lines
+
+# Scenario 12: Multi-Line Editing Challenge
+# Task: Transform this data into a different format
+# Technique: Combine multiple motions
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+name=John
+age=30
+city=NYC
+country=USA
+
+AFTER:
+{
+    "name": "John",
+    "age": 30,
+    "city": "NYC",
+    "country": "USA"
+}
+
+Steps for each line:
+1. I"<Esc> to insert opening quote for key
+2. f= to find equals
+3. s": "<Esc> to change = to ": "
+4. A",<Esc> to append closing quote and comma
+5. Repeat for each line
+6. Add braces at start and end
+
+# Scenario 13: Comment/Uncomment Code
+# Task: Toggle comments on multiple lines
+# Technique: Use Visual Block mode (Ctrl-v)
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+function debug() {
+    console.log("Debug 1");
+    console.log("Debug 2");
+    console.log("Debug 3");
+}
+
+AFTER (commented out):
+function debug() {
+    // console.log("Debug 1");
+    // console.log("Debug 2");
+    // console.log("Debug 3");
+}
+
+Steps to comment:
+1. Move to first console.log line
+2. Ctrl-v to enter Visual Block mode
+3. jj to select 3 lines
+4. I// <Esc> to insert comment prefix
+
+Steps to uncomment:
+1. Ctrl-v on first //
+2. jj to select 3 lines
+3. ll to select // characters
+4. d to delete
+
+# Scenario 14: Create Test Cases from Template
+# Task: Generate multiple similar test cases
+# Technique: Yank, paste, and modify efficiently
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+test('should validate email', () => {
+    expect(validateEmail('test@example.com')).toBe(true);
+});
+
+AFTER:
+test('should validate email', () => {
+    expect(validateEmail('test@example.com')).toBe(true);
+});
+
+test('should reject invalid email', () => {
+    expect(validateEmail('invalid-email')).toBe(false);
+});
+
+test('should validate phone', () => {
+    expect(validatePhone('+1234567890')).toBe(true);
+});
+
+test('should reject invalid phone', () => {
+    expect(validatePhone('abc')).toBe(false);
+});
+
+# Scenario 15: Complete Refactoring Exercise
+# Task: Refactor this entire code block
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+var x = function(a,b,c) {
+var temp = a + b
+    var result=temp*c
+if(result>100){
+return "big"
+}else{
+return "small"
+}
+}
+
+AFTER:
+const calculateResult = function(first, second, multiplier) {
+    const sum = first + second;
+    const result = sum * multiplier;
+    if (result > 100) {
+        return "big";
+    } else {
+        return "small";
+    }
+};
+
+Changes needed:
+1. var → const (ciw)
+2. x → calculateResult (ciw)
+3. a,b,c → first, second, multiplier (ci()
+4. Fix indentation (=ap or manual >>)
+5. Add missing semicolons
+6. Fix spacing around operators
+
