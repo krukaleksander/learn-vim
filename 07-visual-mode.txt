@@ -1,0 +1,295 @@
+================================================================================
+                           VIM MOTIONS - VISUAL MODE
+================================================================================
+Visual mode allows you to select text before applying operations.
+Three types: Character (v), Line (V), and Block (Ctrl-v)
+================================================================================
+
+# Exercise 1: Character-wise Visual Mode (v)
+# Task: Select specific text using 'v' and motions
+# ──────────────────────────────────────────────────────────────────────────────
+Select only the word HIGHLIGHT in this sentence.
+Select from HERE to THERE in this line.
+Select everything inside (these parentheses) please.
+
+Steps:
+1. Position cursor at start of text
+2. Press v to enter visual mode
+3. Use motions (w, e, f, /, etc.) to extend selection
+4. Press operator (d, c, y) or Esc to cancel
+
+# Exercise 2: Line-wise Visual Mode (V)
+# Task: Select entire lines using 'V'
+# ──────────────────────────────────────────────────────────────────────────────
+Line 1: Select this line
+Line 2: And this line too
+Line 3: And this one
+Line 4: All together
+
+Steps:
+1. Press V on first line
+2. Press j to extend selection down
+3. Press d to delete, y to yank, or > to indent
+
+# Exercise 3: Block Visual Mode (Ctrl-v)
+# Task: Select a rectangular block of text
+# ──────────────────────────────────────────────────────────────────────────────
+Column1    Column2    Column3
+aaaaa      bbbbb      ccccc
+11111      22222      33333
+xxxxx      yyyyy      zzzzz
+
+Try selecting only Column2:
+1. Position cursor on first 'b'
+2. Press Ctrl-v
+3. Press jjj to go down
+4. Press e to extend to end of word
+5. Press d to delete the block
+
+# Exercise 4: Visual Block Insert (I)
+# Task: Add text to multiple lines at once
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+item1
+item2
+item3
+item4
+item5
+
+AFTER (add "- " prefix to each):
+- item1
+- item2
+- item3
+- item4
+- item5
+
+Steps:
+1. Ctrl-v on first line
+2. jjjj to select all lines
+3. I (capital i) to insert
+4. Type "- "
+5. Press Esc - text appears on all lines!
+
+# Exercise 5: Visual Block Append (A)
+# Task: Add text to the end of multiple lines
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+filename1
+filename2
+filename3
+filename4
+
+AFTER (add ".txt" suffix):
+filename1.txt
+filename2.txt
+filename3.txt
+filename4.txt
+
+Steps:
+1. Ctrl-v on first line
+2. jjj to select lines
+3. $ to extend to end of each line
+4. A to append
+5. Type ".txt"
+6. Press Esc
+
+# Exercise 6: Visual Block Change (c)
+# Task: Replace a column of text
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+const aaa = 1;
+const bbb = 2;
+const ccc = 3;
+const ddd = 4;
+
+AFTER (change const to let):
+let aaa = 1;
+let bbb = 2;
+let ccc = 3;
+let ddd = 4;
+
+Steps:
+1. Ctrl-v on 'c' of first "const"
+2. jjj to select down
+3. e to select word
+4. c to change
+5. Type "let"
+6. Press Esc
+
+# Exercise 7: Visual Selection with Text Objects
+# Task: Use text objects to make smart selections
+# ──────────────────────────────────────────────────────────────────────────────
+function example(param1, param2, param3) {
+    const message = "Select this entire string";
+    const array = [1, 2, 3, 4, 5];
+    return { key: "value", num: 42 };
+}
+
+Try:
+  vi" - select inside quotes
+  va" - select around quotes (includes quotes)
+  vi( - select inside parentheses
+  vi{ - select inside braces
+  vi[ - select inside brackets
+  vip - select inner paragraph
+  viw - select inner word
+
+# Exercise 8: Reselect Previous Selection (gv)
+# Task: Use 'gv' to reselect the last visual selection
+# ──────────────────────────────────────────────────────────────────────────────
+This is some text to practice with.
+Select some text, do an operation, then reselect.
+
+Steps:
+1. v and select some text
+2. y to yank (exits visual mode)
+3. gv to reselect the same text
+4. Now you can do another operation
+
+# Exercise 9: Swap Selection Ends (o)
+# Task: Use 'o' to jump between ends of selection
+# ──────────────────────────────────────────────────────────────────────────────
+START of selection -------- END of selection
+
+Steps:
+1. v to start visual mode
+2. Select some text
+3. Press o to jump to other end
+4. Now you can extend selection in the other direction
+5. Press o again to jump back
+
+# Exercise 10: Visual Mode Operators
+# Task: Practice different operators on selected text
+# ──────────────────────────────────────────────────────────────────────────────
+SAMPLE TEXT FOR OPERATIONS:
+delete this line entirely
+change THIS WORD to something else
+UPPERCASE THIS to lowercase
+    indent this line more
+
+Operations to try:
+  d  - Delete selection
+  c  - Change selection (delete and enter insert mode)
+  y  - Yank (copy) selection
+  >  - Indent selection right
+  <  - Indent selection left
+  =  - Auto-indent selection
+  u  - Lowercase selection
+  U  - Uppercase selection
+  ~  - Toggle case of selection
+  !  - Filter through external command
+  :  - Enter command mode for selection
+
+# Exercise 11: Visual Block Number Sequence
+# Task: Create a numbered list using Ctrl-v and g Ctrl-a
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+0. First item
+0. Second item
+0. Third item
+0. Fourth item
+0. Fifth item
+
+AFTER:
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+5. Fifth item
+
+Steps:
+1. Ctrl-v on first '0'
+2. jjjj to select all zeros
+3. g Ctrl-a to create incrementing sequence
+
+# Exercise 12: Visual Mode in Code Editing
+# Task: Practice visual selections on code
+# ──────────────────────────────────────────────────────────────────────────────
+const users = [
+    { id: 1, name: "Alice", role: "admin" },
+    { id: 2, name: "Bob", role: "user" },
+    { id: 3, name: "Charlie", role: "user" },
+    { id: 4, name: "Diana", role: "moderator" },
+];
+
+function processUsers(users) {
+    return users
+        .filter(u => u.role !== "admin")
+        .map(u => u.name)
+        .join(", ");
+}
+
+Exercises:
+1. V3j to select array contents, then > to indent
+2. vi[ to select array items
+3. Ctrl-v to select column of "role" values
+4. vip to select function body
+
+# Exercise 13: Comment Block with Visual Block
+# Task: Comment out multiple lines using block insert
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+console.log("debug 1");
+console.log("debug 2");
+console.log("debug 3");
+console.log("debug 4");
+
+AFTER:
+// console.log("debug 1");
+// console.log("debug 2");
+// console.log("debug 3");
+// console.log("debug 4");
+
+Steps:
+1. Ctrl-v at start of first line
+2. jjj to select 4 lines
+3. I to insert
+4. Type "// "
+5. Esc to apply to all lines
+
+# Exercise 14: Align Text with Visual Block
+# Task: Align the equals signs
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+x = 1
+longer_name = 2
+y = 3
+very_long_variable = 4
+
+AFTER:
+x                   = 1
+longer_name         = 2
+y                   = 3
+very_long_variable  = 4
+
+Steps:
+1. Use Ctrl-v to select spaces before =
+2. Add/remove spaces to align
+(Or use external tools/plugins)
+
+# Exercise 15: Practical Visual Mode Challenge
+# Task: Transform this data using visual mode
+# ──────────────────────────────────────────────────────────────────────────────
+BEFORE:
+apple
+banana
+cherry
+date
+elderberry
+
+AFTER (create an array):
+const fruits = [
+    "apple",
+    "banana",
+    "cherry",
+    "date",
+    "elderberry",
+];
+
+Steps:
+1. Ctrl-v, select all lines
+2. I"<Esc> to add opening quote
+3. gv to reselect
+4. A",<Esc> to add closing quote and comma
+5. Manually add array wrapper
+===============================================================================
