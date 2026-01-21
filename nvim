@@ -1,0 +1,53 @@
+diff --git a/07-visual-mode.txt b/07-visual-mode.txt
+index 9622258..9b69156 100644
+--- a/07-visual-mode.txt
++++ b/07-visual-mode.txt
+@@ -293,3 +293,48 @@ Steps:
+ 4. A",<Esc> to add closing quote and comma
+ 5. Manually add array wrapper
+ ===============================================================================
++
++================================================================================
++                          VISUAL MODE CHEATSHEET
++================================================================================
++ENTERING VISUAL MODE:
++v          - Character-wise visual mode
++V          - Line-wise visual mode
++Ctrl-v     - Block-wise visual mode
++gv         - Reselect last visual selection
++
++NAVIGATION IN VISUAL MODE:
++o          - Jump to other end of selection
++O          - Jump to other corner (block mode)
++All normal motions work (w, b, e, f, /, etc.)
++
++VISUAL MODE OPERATORS:
++d          - Delete selection
++c          - Change selection
++y          - Yank selection
++p          - Replace selection with register
++>          - Indent right
++<          - Indent left
++=          - Auto-indent
++u          - Lowercase
++U          - Uppercase
++~          - Toggle case
++J          - Join lines
++gq         - Format/wrap text
++:          - Command on selection
++
++BLOCK MODE SPECIAL:
++I          - Insert at start of each line
++A          - Append at end of each line
++c          - Change block (replace)
++r{char}    - Replace all chars with {char}
++$          - Extend to end of all lines
++
++TEXT OBJECTS IN VISUAL:
++vaw        - Select a word
++viw        - Select inner word
++vi"        - Select inside quotes
++va(        - Select around parentheses
++vip        - Select inner paragraph
++vat        - Select around tag
++=
